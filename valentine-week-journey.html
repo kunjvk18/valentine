@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Valentine's Week Journey for Trusha ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            overflow-x: hidden;
+            background: #1a1a2e;
+        }
+
+        .main-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Floating hearts background */
+        .hearts-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 25px;
+            color: rgba(255, 255, 255, 0.3);
+            animation: float-up infinite ease-in;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Welcome Screen */
+        .welcome-screen {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 60px 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 10;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .welcome-title {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .welcome-text {
+            font-size: 1.2rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .start-button {
+            padding: 20px 50px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+        }
+
+        .start-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.6);
+        }
+
+        /* Cards Container */
+        .cards-container {
+            max-width: 1400px;
+            width: 100%;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .valentine-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .valentine-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .valentine-card.opened {
+            cursor: default;
+        }
+
+        .card-ribbon {
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-day {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .card-date {
+            font-size: 1rem;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            font-size: 4rem;
+            margin: 20px 0;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .card-front,
+        .card-back {
+            transition: all 0.5s ease;
+        }
+
+        .card-front {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card-back {
+            display: none;
+            flex-direction: column;
+            animation: flipIn 0.6s ease-out;
+        }
+
+        .valentine-card.opened .card-front {
+            display: none;
+        }
+
+        .valentine-card.opened .card-back {
+            display: flex;
+        }
+
+        @keyframes flipIn {
+            from {
+                opacity: 0;
+                transform: rotateY(90deg);
+            }
+            to {
+                opacity: 1;
+                transform: rotateY(0);
+            }
+        }
+
+        .card-memory-title {
+            font-size: 1.3rem;
+            color: #e91e63;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .card-memory-text {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .card-message {
+            font-style: italic;
+            color: #764ba2;
+            padding: 15px;
+            background: rgba(118, 75, 162, 0.1);
+            border-radius: 10px;
+            border-left: 3px solid #764ba2;
+            margin-top: 10px;
+        }
+
+        .click-instruction {
+            font-size: 0.9rem;
+            color: #999;
+            margin-top: 10px;
+        }
+
+        /* Proposal Section */
+        .proposal-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-top: 40px;
+            display: none;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .proposal-section.show {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .proposal-heart {
+            font-size: 100px;
+            animation: heartbeat 1.5s ease infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            10%, 30% {
+                transform: scale(1.1);
+            }
+            20%, 40% {
+                transform: scale(1);
+            }
+        }
+
+        .proposal-title {
+            font-size: 3rem;
+            color: #333;
+            margin: 30px 0 20px;
+            font-weight: 600;
+        }
+
+        .proposal-subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .funny-message {
+            font-size: 1.3rem;
+            color: #e91e63;
+            margin-bottom: 20px;
+            font-weight: 600;
+            min-height: 30px;
+            animation: bounce 0.5s ease;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            min-height: 80px;
+        }
+
+        .yes-button,
+        .no-button {
+            padding: 20px 50px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .yes-button {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .yes-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
+        }
+
+        .no-button {
+            background: #e0e0e0;
+            color: #666;
+            position: relative;
+        }
+
+        .no-button.dancing {
+            position: fixed;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        /* Success Screen */
+        .success-screen {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 60px 40px;
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 10;
+            display: none;
+            animation: celebrate 0.8s ease-out;
+        }
+
+        .success-screen.show {
+            display: block;
+        }
+
+        @keyframes celebrate {
+            0% {
+                transform: scale(0.5) rotate(-5deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05) rotate(2deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .success-heart {
+            font-size: 120px;
+            color: #e91e63;
+            animation: pulse 1s ease infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        .success-title {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .booking-text {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .booking-details {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #667eea;
+            text-align: left;
+        }
+
+        .booking-details p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .love-note {
+            font-size: 1.5rem;
+            color: #e91e63;
+            font-style: italic;
+            margin-top: 30px;
+        }
+
+        .hearts-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .falling-heart {
+            position: absolute;
+            font-size: 30px;
+            color: #e91e63;
+            animation: fall linear;
+            opacity: 0.7;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(calc(100vh + 50px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .welcome-title,
+            .success-title,
+            .proposal-title {
+                font-size: 2rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .valentine-card {
+                min-height: 300px;
+            }
+
+            .booking-text {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="hearts-background" id="heartsBackground"></div>
+
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <div class="welcome-title">Hey Trusha! 💕</div>
+            <div class="welcome-subtitle">A Valentine's Week Journey</div>
+            <p class="welcome-text">
+                This Valentine's Week is special because it's about US - our journey, our moments, our love story.
+                <br><br>
+                I've prepared something special for you... 8 cards, each representing a day of Valentine's Week, 
+                each holding a precious memory of our beautiful journey together.
+                <br><br>
+                Click each card to unlock our special moments! ❤️
+            </p>
+            <button class="start-button" onclick="startJourney()">Begin Our Journey 💝</button>
+        </div>
+
+        <!-- Cards Container -->
+        <div class="cards-container hidden" id="cardsContainer">
+            <div class="cards-grid" id="cardsGrid">
+                <!-- Cards will be generated by JavaScript -->
+            </div>
+
+            <!-- Proposal Section -->
+            <div class="proposal-section" id="proposalSection">
+                <div class="proposal-heart">❤️</div>
+                <h1 class="proposal-title">Will You Marry Me?</h1>
+                <p class="proposal-subtitle">Make this Valentine's Day unforgettable... 💍</p>
+                <p class="funny-message" id="funnyMessage"></p>
+                <div class="buttons-container">
+                    <button class="yes-button" id="yesButton">YES! 💕</button>
+                    <button class="no-button" id="noButton">No</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Screen -->
+        <div class="success-screen" id="successScreen">
+            <div class="success-heart">❤️</div>
+            <h1 class="success-title">🎉 She Said YES! 🎉</h1>
+            <p class="booking-text">
+                You are now <span class="highlight">Kunj's Permanent Booking</span>! 💍
+            </p>
+            <div class="booking-details">
+                <p><strong>📋 Booking Confirmation:</strong></p>
+                <p>✨ Status: CONFIRMED & LOCKED FOREVER</p>
+                <p>💕 Package: Unlimited Love, Lifetime Edition</p>
+                <p>🎁 Includes: Endless adventures, random dance parties, mandatory cuddles, unlimited laughter</p>
+                <p>⚠️ Side Effects: Excessive happiness, permanent smile, chronic butterflies</p>
+                <p>🚫 Cancellation Policy: Non-refundable, non-transferable, absolutely irreversible!</p>
+                <p>💖 Validity: From now until forever and beyond</p>
+            </div>
+            <p class="love-note">
+                I love you, Trusha! Can't wait to spend every Valentine's Day with you for the rest of our lives! 💖
+            </p>
+            <div class="hearts-rain" id="heartsRain"></div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts
+        const heartsBackground = document.getElementById('heartsBackground');
+        for (let i = 0; i < 15; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.textContent = '❤️';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            heart.style.animationDuration = (8 + Math.random() * 4) + 's';
+            heartsBackground.appendChild(heart);
+        }
+
+        // Valentine's Week Cards Data
+        const cardsData = [
+            {
+                day: 'Rose Day',
+                date: 'February 7',
+                icon: '🌹',
+                memoryTitle: 'The Day We First Met',
+                memoryDate: '29th June 2024',
+                memoryText: 'From the moment I saw you, I knew you were special. That first meeting changed everything for me.',
+                message: 'Like a rose blooming in my garden, you brought color and beauty into my life. Every day with you is as fresh and beautiful as the first day we met. 🌹'
+            },
+            {
+                day: 'Propose Day',
+                date: 'February 8',
+                icon: '💍',
+                memoryTitle: 'You Came to My Home',
+                memoryDate: '30th June 2024',
+                memoryText: 'The day you stepped into my home, you made it feel complete. That\'s when I knew you belonged there, forever.',
+                message: 'You walked into my house and made it a home. You walked into my life and made it worth living. Today, I\'m asking you to walk with me forever. 💍'
+            },
+            {
+                day: 'Chocolate Day',
+                date: 'February 9',
+                icon: '🍫',
+                memoryTitle: 'Our Final Decision',
+                memoryDate: '1st July 2024',
+                memoryText: 'The day we decided to be together forever. Sweet and certain, just like the best chocolate.',
+                message: 'Life with you is sweeter than any chocolate. You\'re my favorite flavor, my sweetest addiction, my daily dose of happiness. 🍫💕'
+            },
+            {
+                day: 'Teddy Day',
+                date: 'February 10',
+                icon: '🧸',
+                memoryTitle: 'Our Jal Ceremony',
+                memoryDate: '7th July 2024',
+                memoryText: 'The sacred moment when we promised our families and each other that we\'re in this together.',
+                message: 'Like a teddy bear, I want to be your comfort, your warmth, your cuddle buddy for life. Hold me close and never let go. 🧸❤️'
+            },
+            {
+                day: 'Promise Day',
+                date: 'February 11',
+                icon: '🤝',
+                memoryTitle: 'Promises We Made',
+                memoryDate: 'Every Single Day',
+                memoryText: 'Every moment with you is a promise kept and a new promise made.',
+                message: 'I promise to love you in sunny days and stormy nights, to make you laugh when you want to cry, to be your partner in all adventures. This is my forever promise. 🤝💖'
+            },
+            {
+                day: 'Hug Day',
+                date: 'February 12',
+                icon: '🤗',
+                memoryTitle: 'In Your Arms',
+                memoryDate: 'Every Precious Moment',
+                memoryText: 'Your hugs are my safe place, my home, my favorite place in the world.',
+                message: 'In your arms, I found my home. In your hug, I found my peace. Let\'s hold each other tight through every chapter of our story. 🤗💕'
+            },
+            {
+                day: 'Kiss Day',
+                date: 'February 13',
+                icon: '💋',
+                memoryTitle: 'Our First Kiss',
+                memoryDate: '20th July 2024',
+                memoryText: 'The magical moment when our souls connected. Time stopped, and nothing else mattered.',
+                message: 'That first kiss sealed our fate. Every kiss since then has been a celebration of our love. Here\'s to a million more kisses for the rest of our lives. 💋✨'
+            },
+            {
+                day: "Valentine's Day",
+                date: 'February 14',
+                icon: '❤️',
+                memoryTitle: 'Today & Forever',
+                memoryDate: '2025 and Beyond',
+                memoryText: 'This isn\'t just another Valentine\'s Day. This is THE Valentine\'s Day when I officially ask you to be mine forever.',
+                message: 'From our first meeting to our first kiss, from promises to forever - every moment has led us here. You are my Valentine today and every day. I love you, Trusha. ❤️'
+            }
+        ];
+
+        let openedCards = 0;
+        const totalCards = cardsData.length;
+
+        function startJourney() {
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('cardsContainer').classList.remove('hidden');
+            generateCards();
+        }
+
+        function generateCards() {
+            const cardsGrid = document.getElementById('cardsGrid');
+            cardsData.forEach((card, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'valentine-card';
+                cardElement.innerHTML = `
+                    <div class="card-ribbon">${card.day}</div>
+                    <div class="card-front">
+                        <div class="card-day">${card.day}</div>
+                        <div class="card-date">${card.date}</div>
+                        <div class="card-icon">${card.icon}</div>
+                        <p class="click-instruction">Click to reveal ✨</p>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-memory-title">${card.memoryTitle}</div>
+                        <div class="card-date">${card.memoryDate}</div>
+                        <div class="card-memory-text">${card.memoryText}</div>
+                        <div class="card-message">${card.message}</div>
+                    </div>
+                `;
+                cardElement.onclick = () => openCard(cardElement, index);
+                cardsGrid.appendChild(cardElement);
+            });
+        }
+
+        function openCard(cardElement, index) {
+            if (!cardElement.classList.contains('opened')) {
+                cardElement.classList.add('opened');
+                openedCards++;
+                
+                if (openedCards === totalCards) {
+                    setTimeout(() => {
+                        document.getElementById('proposalSection').classList.add('show');
+                        document.getElementById('proposalSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 500);
+                }
+            }
+        }
+
+        // Proposal functionality
+        const funnyNoMessages = [
+            "Think again! 🤔",
+            "Wrong button! 😅",
+            "Try the other one! 💕",
+            "That's not the right answer! 😉",
+            "Come on, you know the answer! 💖",
+            "Oops, wrong choice! 😘",
+            "Trusha, seriously? 😆",
+            "The right button is waiting! 💝"
+        ];
+
+        let noAttempts = 0;
+        const noButton = document.getElementById('noButton');
+        const yesButton = document.getElementById('yesButton');
+        const funnyMessage = document.getElementById('funnyMessage');
+
+        function moveNoButton() {
+            const containerWidth = window.innerWidth;
+            const containerHeight = window.innerHeight;
+            
+            const maxX = containerWidth - 150;
+            const maxY = containerHeight - 100;
+            
+            let newX = Math.random() * maxX;
+            let newY = Math.random() * maxY;
+            
+            newX = Math.max(20, Math.min(newX, maxX - 100));
+            newY = Math.max(20, Math.min(newY, maxY - 50));
+            
+            noButton.classList.add('dancing');
+            noButton.style.left = newX + 'px';
+            noButton.style.top = newY + 'px';
+            
+            funnyMessage.textContent = funnyNoMessages[Math.min(noAttempts, funnyNoMessages.length - 1)];
+            noAttempts++;
+        }
+
+        noButton.addEventListener('mouseenter', moveNoButton);
+        noButton.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveNoButton();
+        });
+        noButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        yesButton.addEventListener('click', () => {
+            document.getElementById('cardsContainer').classList.add('hidden');
+            document.getElementById('successScreen').classList.add('show');
+            
+            // Create falling hearts
+            const heartsRain = document.getElementById('heartsRain');
+            for (let i = 0; i < 30; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'falling-heart';
+                heart.textContent = '❤️';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heart.style.animationDuration = (2 + Math.random() * 2) + 's';
+                heartsRain.appendChild(heart);
+            }
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
